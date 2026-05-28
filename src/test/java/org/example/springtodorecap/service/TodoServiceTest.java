@@ -75,6 +75,7 @@ class TodoServiceTest {
         TodoDto todoDto = TodoDto.builder().description("My todo 2").status(Status.IN_PROGRESS).build();
         Todo expected = Todo.builder().id(id).description("My todo 2").status(Status.IN_PROGRESS).build();
         when(this.mockTodoRepo.findById(id)).thenReturn(Optional.of(expected));
+        when(this.mockTodoRepo.save(expected)).thenReturn(expected);
         // When
         Todo actual = todoService.updateTodo(id, todoDto);
         // Then

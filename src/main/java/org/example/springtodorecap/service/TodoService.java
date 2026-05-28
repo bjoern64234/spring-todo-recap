@@ -35,9 +35,7 @@ public class TodoService {
                 .withDescription(todoDto.description())
                 .withStatus(todoDto.status());
 
-        this.todoRepo.save(newTodo);
-
-        return newTodo;
+        return this.todoRepo.save(newTodo);
     }
 
     public Todo updateTodo(String id, TodoDto todo) {
@@ -51,9 +49,7 @@ public class TodoService {
                 .withDescription(todo.description())
                 .withStatus(todo.status());
 
-        this.todoRepo.save(updateTodo);
-
-        return updateTodo;
+        return this.todoRepo.save(updateTodo);
     }
 
     public ResponseEntity<Map<String, Boolean>> deleteTodo(String id) {
