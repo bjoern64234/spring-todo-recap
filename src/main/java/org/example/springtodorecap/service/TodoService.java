@@ -1,5 +1,6 @@
 package org.example.springtodorecap.service;
 
+import org.example.springtodorecap.dto.TodoDto;
 import org.example.springtodorecap.model.Todo;
 import org.example.springtodorecap.repository.TodoRepo;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,17 @@ public class TodoService {
     }
 
     public List<Todo> findAll() {
-        return todoRepo.findAll();
+        return this.todoRepo.findAll();
+    }
+
+    public Todo saveTodo(TodoDto todoDto) {
+        Todo newTodo = Todo.builder().build()
+                .withId(this.idService.generateId())
+                .withDescription(todoDto.description())
+                .withStatus(todoDto.status());
+
+        this.todoRepo.save(newTodo);
+
+        return newTodo;
     }
 }

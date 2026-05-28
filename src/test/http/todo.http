@@ -1,0 +1,11 @@
+### Get all posts
+GET {{localhost}}:{{port}}/api/todo
+
+### Add new character
+POST {{localhost}}:{{port}}/api/todo
+Content-Type: application/json
+
+{
+  "description": "my todo",
+  "status": "OPEN"
+}

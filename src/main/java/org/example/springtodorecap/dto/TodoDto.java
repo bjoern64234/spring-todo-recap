@@ -1,4 +1,4 @@
-package org.example.springtodorecap.model;
+package org.example.springtodorecap.dto;
 
 import lombok.Builder;
 import lombok.With;
@@ -6,5 +6,5 @@ import org.example.springtodorecap.utils.Status;
 
 @With
 @Builder
-public record Todo(String id, String description, Status status) {
+public record TodoDto(String description, Status status) {
 }

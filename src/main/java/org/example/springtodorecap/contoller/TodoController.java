@@ -1,10 +1,9 @@
 package org.example.springtodorecap.contoller;
 
+import org.example.springtodorecap.dto.TodoDto;
 import org.example.springtodorecap.model.Todo;
 import org.example.springtodorecap.service.TodoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,10 @@ public class TodoController {
     @GetMapping
     public List<Todo> getTodos() {
         return this.todoService.findAll();
+    }
+
+    @PostMapping
+    public Todo saveTodo(@RequestBody TodoDto todoDto) {
+        return this.todoService.saveTodo(todoDto);
     }
 }

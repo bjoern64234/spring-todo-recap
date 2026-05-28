@@ -25,4 +25,16 @@ class TodoControllerTest {
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().json("[]"));
     }
+
+    @Test
+    void saveTodo() throws Exception {
+        this.mockMvc.perform(post("/api/todo").contentType("application/json").content("""
+                {"description": "my todo", "status": "OPEN"}
+                """))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(content().json("""
+                  {"description": "my todo", "status": "OPEN"}
+                """)).andExpect(jsonPath("$.id").isNotEmpty());
+    }
 }
