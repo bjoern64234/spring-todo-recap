@@ -6,9 +6,11 @@ import org.example.springtodorecap.repository.TodoRepo;
 import org.example.springtodorecap.utils.Status;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -79,5 +81,21 @@ class TodoServiceTest {
         assertEquals(expected, actual);
         verify(this.mockTodoRepo).findById(id);
         verify(this.mockTodoRepo).save(expected);
+    }
+
+    @Test
+    void deleteTodo() {
+        // Given
+        TodoService todoService = new TodoService(this.mockTodoRepo, this.mockIdService);
+        String id = "1";
+        Todo expected = Todo.builder().id(id).description("My todo").status(Status.DONE).build();
+        this.mockTodoRepo.save(expected);
+        when(this.mockTodoRepo.findById(id)).thenReturn(Optional.of(expected));
+        // When
+        ResponseEntity<Map<String, Boolean>> actual = todoService.deleteTodo(id);
+        // Then
+        assert actual.getBody() != null;
+        assertEquals(true, actual.getBody().get("deleted"));
+        verify(this.mockTodoRepo).deleteById(id);
     }
 }

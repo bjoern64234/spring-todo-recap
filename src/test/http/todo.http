@@ -17,3 +17,15 @@ Content-Type: application/json
     var res = response.body
     client.global.set("id", res.id)
 %}
+
+### Update todo by id
+PUT {{localhost}}:{{port}}/api/todo/{{id}}
+Content-Type: application/json
+
+{
+  "description": "my todo 2",
+  "status": "DONE"
+}
+
+### Delete todo by id
+DELETE {{localhost}}:{{port}}/api/todo/{{id}}

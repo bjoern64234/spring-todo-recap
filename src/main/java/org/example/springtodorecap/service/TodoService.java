@@ -3,9 +3,11 @@ package org.example.springtodorecap.service;
 import org.example.springtodorecap.dto.TodoDto;
 import org.example.springtodorecap.model.Todo;
 import org.example.springtodorecap.repository.TodoRepo;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TodoService {
@@ -52,5 +54,11 @@ public class TodoService {
         this.todoRepo.save(updateTodo);
 
         return updateTodo;
+    }
+
+    public ResponseEntity<Map<String, Boolean>> deleteTodo(String id) {
+        this.todoRepo.deleteById(id);
+
+        return ResponseEntity.ok(Map.of("deleted", true));
     }
 }

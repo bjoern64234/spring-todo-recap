@@ -69,4 +69,12 @@ class TodoControllerTest {
                   {"id": "1", "description": "my todo 2", "status": "DONE"}
                 """));
     }
+
+    @Test
+    void deleteTodoById() throws Exception {
+        Todo todo = Todo.builder().id("1").description("my todo").status(Status.DONE).build();
+        this.todoRepo.save(todo);
+        mockMvc.perform(delete("/api/todo/" + todo.id()))
+                .andExpect(status().isOk());
+    }
 }
