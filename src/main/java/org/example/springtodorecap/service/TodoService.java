@@ -6,6 +6,7 @@ import org.example.springtodorecap.repository.TodoRepo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -29,13 +30,13 @@ public class TodoService {
         return this.todoRepo.findById(id).orElse(null);
     }
 
-    public Todo saveTodo(TodoDto todoDto) {
+    public ResponseEntity<Todo> saveTodo(TodoDto todoDto) {
         Todo newTodo = Todo.builder().build()
                 .withId(this.idService.generateId())
                 .withDescription(todoDto.description())
                 .withStatus(todoDto.status());
 
-        return this.todoRepo.save(newTodo);
+        return ResponseEntity.created(URI.create("/api/todo/" + newTodo.id())).body(this.todoRepo.save(newTodo));
     }
 
     public Todo updateTodo(String id, TodoDto todo) {

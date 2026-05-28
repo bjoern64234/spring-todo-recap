@@ -60,9 +60,9 @@ class TodoServiceTest {
         when(this.mockIdService.generateId()).thenReturn(id);
         when(this.mockTodoRepo.save(expected)).thenReturn(expected);
         // When
-        Todo actual = todoService.saveTodo(todoDto);
+        ResponseEntity<Todo> actual = todoService.saveTodo(todoDto);
         // Then
-        assertEquals(expected, actual);
+        assertEquals(expected, actual.getBody());
         verify(this.mockTodoRepo).save(expected);
         verify(this.mockIdService).generateId();
     }

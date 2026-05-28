@@ -30,7 +30,7 @@ public class TodoController {
     }
 
     @PostMapping
-    public Todo saveTodo(@RequestBody TodoDto todoDto) {
+    public ResponseEntity<Todo> saveTodo(@RequestBody TodoDto todoDto) {
         return this.todoService.saveTodo(todoDto);
     }
 
