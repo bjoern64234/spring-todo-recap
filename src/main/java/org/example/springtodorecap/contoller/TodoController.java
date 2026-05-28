@@ -31,4 +31,9 @@ public class TodoController {
     public Todo saveTodo(@RequestBody TodoDto todoDto) {
         return this.todoService.saveTodo(todoDto);
     }
+
+    @PutMapping("/{id}")
+    public Todo updateTodoById(@PathVariable String id, @RequestBody TodoDto todoDto) {
+        return this.todoService.updateTodo(id, todoDto);
+    }
 }

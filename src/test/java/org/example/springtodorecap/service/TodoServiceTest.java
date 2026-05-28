@@ -64,4 +64,20 @@ class TodoServiceTest {
         verify(this.mockTodoRepo).save(expected);
         verify(this.mockIdService).generateId();
     }
+
+    @Test
+    void updateTodo() {
+        // Given
+        TodoService todoService = new TodoService(this.mockTodoRepo, this.mockIdService);
+        String id = "1";
+        TodoDto todoDto = TodoDto.builder().description("My todo 2").status(Status.IN_PROGRESS).build();
+        Todo expected = Todo.builder().id(id).description("My todo 2").status(Status.IN_PROGRESS).build();
+        when(this.mockTodoRepo.findById(id)).thenReturn(Optional.of(expected));
+        // When
+        Todo actual = todoService.updateTodo(id, todoDto);
+        // Then
+        assertEquals(expected, actual);
+        verify(this.mockTodoRepo).findById(id);
+        verify(this.mockTodoRepo).save(expected);
+    }
 }

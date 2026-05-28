@@ -37,4 +37,20 @@ public class TodoService {
 
         return newTodo;
     }
+
+    public Todo updateTodo(String id, TodoDto todo) {
+        Todo currentTodo = this.todoRepo.findById(id).orElse(null);
+
+        if (currentTodo == null) {
+            return null;
+        }
+
+        Todo updateTodo = currentTodo
+                .withDescription(todo.description())
+                .withStatus(todo.status());
+
+        this.todoRepo.save(updateTodo);
+
+        return updateTodo;
+    }
 }

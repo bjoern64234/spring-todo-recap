@@ -55,4 +55,18 @@ class TodoControllerTest {
                   {"description": "my todo", "status": "OPEN"}
                 """)).andExpect(jsonPath("$.id").isNotEmpty());
     }
+
+    @Test
+    void updateTodoById() throws Exception {
+        Todo todo = Todo.builder().id("1").description("my todo").status(Status.OPEN).build();
+        this.todoRepo.save(todo);
+        this.mockMvc.perform(put("/api/todo/" + todo.id()).contentType("application/json").content("""
+                {"description": "my todo 2", "status": "DONE"}
+                """))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(content().json("""
+                  {"id": "1", "description": "my todo 2", "status": "DONE"}
+                """));
+    }
 }
