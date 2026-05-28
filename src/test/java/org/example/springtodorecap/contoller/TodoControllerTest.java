@@ -1,5 +1,8 @@
 package org.example.springtodorecap.contoller;
 
+import org.example.springtodorecap.model.Todo;
+import org.example.springtodorecap.repository.TodoRepo;
+import org.example.springtodorecap.utils.Status;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,12 +21,27 @@ class TodoControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private TodoRepo todoRepo;
+
     @Test
     void getTodos() throws Exception {
         this.mockMvc.perform(get("/api/todo"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
                 .andExpect(content().json("[]"));
+    }
+
+    @Test
+    void getTodoById() throws Exception {
+        Todo todo = Todo.builder().id("1").description("my todo").status(Status.OPEN).build();
+        this.todoRepo.save(todo);
+        this.mockMvc.perform(get("/api/todo/" + todo.id()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json"))
+                .andExpect(content().json("""
+                  {"id": "1", "description": "my todo", "status": "OPEN"}
+                """));
     }
 
     @Test

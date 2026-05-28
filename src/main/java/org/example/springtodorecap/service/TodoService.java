@@ -23,6 +23,10 @@ public class TodoService {
         return this.todoRepo.findAll();
     }
 
+    public Todo findById(String id) {
+        return this.todoRepo.findById(id).orElse(null);
+    }
+
     public Todo saveTodo(TodoDto todoDto) {
         Todo newTodo = Todo.builder().build()
                 .withId(this.idService.generateId())

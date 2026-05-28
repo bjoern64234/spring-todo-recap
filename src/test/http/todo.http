@@ -1,7 +1,10 @@
-### Get all posts
+### Get all todos
 GET {{localhost}}:{{port}}/api/todo
 
-### Add new character
+### Get todo by id
+GET {{localhost}}:{{port}}/api/todo/{{id}}
+
+### Add todo
 POST {{localhost}}:{{port}}/api/todo
 Content-Type: application/json
 
@@ -9,3 +12,8 @@ Content-Type: application/json
   "description": "my todo",
   "status": "OPEN"
 }
+
+> {%
+    var res = response.body
+    client.global.set("id", res.id)
+%}

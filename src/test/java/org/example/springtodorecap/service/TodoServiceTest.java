@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -31,6 +32,20 @@ class TodoServiceTest {
         // Then
         assertEquals(expected, actual);
         verify(this.mockTodoRepo).findAll();
+    }
+
+    @Test
+    void findById() {
+        // Given
+        TodoService todoService = new TodoService(this.mockTodoRepo, this.mockIdService);
+        String id = "1";
+        Todo expected = Todo.builder().id(id).description("My todo").status(Status.OPEN).build();
+        when(this.mockTodoRepo.findById(id)).thenReturn(Optional.of(expected));
+        // When
+        Todo actual = todoService.findById(id);
+        // Then
+        assertEquals(expected, actual);
+        verify(this.mockTodoRepo).findById(id);
     }
 
     @Test
