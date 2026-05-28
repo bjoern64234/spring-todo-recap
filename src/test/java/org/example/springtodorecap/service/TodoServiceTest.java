@@ -6,6 +6,8 @@ import org.example.springtodorecap.repository.TodoRepo;
 import org.example.springtodorecap.utils.Status;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -93,10 +95,9 @@ class TodoServiceTest {
         this.mockTodoRepo.save(expected);
         when(this.mockTodoRepo.findById(id)).thenReturn(Optional.of(expected));
         // When
-        ResponseEntity<Map<String, Boolean>> actual = todoService.deleteTodo(id);
+        ResponseEntity<Void> actual = todoService.deleteTodo(id);
         // Then
-        assert actual.getBody() != null;
-        assertEquals(true, actual.getBody().get("deleted"));
+        assertEquals(HttpStatus.NO_CONTENT, actual.getStatusCode());
         verify(this.mockTodoRepo).deleteById(id);
     }
 }

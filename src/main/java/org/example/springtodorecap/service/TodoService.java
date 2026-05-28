@@ -53,9 +53,9 @@ public class TodoService {
         return this.todoRepo.save(updateTodo);
     }
 
-    public ResponseEntity<Map<String, Boolean>> deleteTodo(String id) {
+    public ResponseEntity<Void> deleteTodo(String id) {
         this.todoRepo.deleteById(id);
 
-        return ResponseEntity.ok(Map.of("deleted", true));
+        return ResponseEntity.noContent().build();
     }
 }

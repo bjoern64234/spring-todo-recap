@@ -75,6 +75,6 @@ class TodoControllerTest {
         Todo todo = Todo.builder().id("1").description("my todo").status(Status.DONE).build();
         this.todoRepo.save(todo);
         mockMvc.perform(delete("/api/todo/" + todo.id()))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 }

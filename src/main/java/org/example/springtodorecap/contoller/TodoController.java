@@ -40,7 +40,7 @@ public class TodoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteTodoById(@PathVariable String id) {
+    public ResponseEntity<Void> deleteTodoById(@PathVariable String id) {
         return this.todoService.deleteTodo(id);
     }
 }
