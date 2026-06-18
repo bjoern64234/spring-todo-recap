@@ -1,0 +1,18 @@
+.card {
+    position: relative;
+    color: #fff;
+    background-color: #373737;
+    border: #fff solid 2px;
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 1rem 0;
+    text-align: left;
+    cursor: grab;
+
+    .remove-card {
+        cursor: pointer;
+        position: absolute;
+        top: 0.5rem;
+        right: 1rem;
+    }
+}
