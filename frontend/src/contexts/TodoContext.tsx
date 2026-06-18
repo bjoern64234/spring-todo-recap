@@ -9,6 +9,7 @@ type TodoProps = {
   getTodos: () => void;
   addTodo: (todo: TodoRequest) => void;
   deleteTodo: (id: string) => void;
+  updateTodo: (id: string, newTodo: TodoRequest) => void;
 }
 
 const TodoContext = createContext<TodoProps | null>(null);
@@ -43,12 +44,21 @@ function TodoProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const updateTodo = async (id: string, newTodo: TodoRequest) => {
+    try {
+      const res = await axios.put<Todo>(`/api/todo/${id}`, newTodo);
+      setTodos((prev) => prev.map(todo => todo.id === id ? res.data : todo));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   useEffect(() => {
     getTodos();
   }, []);
 
   return (
-    <TodoContext.Provider value={{todos, setTodos, getTodos, addTodo, deleteTodo }}>
+    <TodoContext.Provider value={{todos, setTodos, getTodos, addTodo, deleteTodo, updateTodo }}>
       { children }
     </TodoContext.Provider>
   )

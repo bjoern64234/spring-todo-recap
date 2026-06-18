@@ -1,6 +1,7 @@
 import "./Step.css";
 import type {Todo} from "../types/Todo.ts";
 import Card from "./Card.tsx";
+import {useTodo} from "../contexts/TodoContext.tsx";
 
 type StepProps = {
   status: string;
@@ -9,10 +10,38 @@ type StepProps = {
 }
 
 export default function Step({ status, todos, handleAdd }: Readonly<StepProps>) {
+
+  const { updateTodo } = useTodo()
+
+  // @ts-ignore
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.target.classList.add("dragover");
+  }
+
+  // @ts-ignore
+  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
+    e.target.classList.remove("dragover");
+  }
+
+  // @ts-ignore
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.currentTarget.classList.remove("dragover");
+
+    const id = e.dataTransfer.getData("id");
+    const description = e.dataTransfer.getData("description");
+    updateTodo(id, { id, description, status });
+  }
+
   return (
     <section>
       <div className="container">
-        <div className="dropzone"
+        <div
+          className="dropzone"
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
         >
           <span className="dropzone-status-name">{status}</span>
           {todos.map((todo) => (
