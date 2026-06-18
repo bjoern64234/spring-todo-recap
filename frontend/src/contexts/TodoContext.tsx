@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useState} from "react";
-import type {Todo} from "../types/Todo.ts";
+import type {Todo, TodoRequest} from "../types/Todo.ts";
 import * as React from "react";
 import axios from "axios";
 
@@ -7,6 +7,7 @@ type TodoProps = {
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
   getTodos: () => void;
+  addTodo: (todo: TodoRequest) => void;
 }
 
 const TodoContext = createContext<TodoProps | null>(null);
@@ -23,13 +24,21 @@ function TodoProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const addTodo = async (todo: TodoRequest) => {
+    try {
+      const res = await axios.post<Todo>("/api/todo", todo);
+      setTodos((prev) => [res.data, ...prev]);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   useEffect(() => {
     getTodos();
   }, []);
 
   return (
-    <TodoContext.Provider value={{todos, setTodos, getTodos }}>
+    <TodoContext.Provider value={{todos, setTodos, getTodos, addTodo }}>
       { children }
     </TodoContext.Provider>
   )

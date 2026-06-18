@@ -5,9 +5,10 @@ import Card from "./Card.tsx";
 type StepProps = {
   status: string;
   todos: Todo[],
+  handleAdd: (status: string) => void,
 }
 
-export default function Step({ status, todos }: Readonly<StepProps>) {
+export default function Step({ status, todos, handleAdd }: Readonly<StepProps>) {
   return (
     <section>
       <div className="container">
@@ -19,6 +20,7 @@ export default function Step({ status, todos }: Readonly<StepProps>) {
           ))}
           <div
             className="add-card"
+            onClick={() => handleAdd(status)}
           >
             <h1>+</h1>
           </div>
