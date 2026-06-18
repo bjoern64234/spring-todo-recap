@@ -25,13 +25,13 @@ export default function Step({ status, todos, handleAdd }: Readonly<StepProps>) 
   }
 
   // @ts-ignore
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+  const handleDrop = async (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.currentTarget.classList.remove("dragover");
 
     const id = e.dataTransfer.getData("id");
     const description = e.dataTransfer.getData("description");
-    updateTodo(id, { id, description, status });
+    await updateTodo(id, { id, description, status });
   }
 
   return (

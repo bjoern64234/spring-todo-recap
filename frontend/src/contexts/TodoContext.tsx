@@ -6,10 +6,11 @@ import axios from "axios";
 type TodoProps = {
   todos: Todo[];
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
-  getTodos: () => void;
-  addTodo: (todo: TodoRequest) => void;
-  deleteTodo: (id: string) => void;
-  updateTodo: (id: string, newTodo: TodoRequest) => void;
+  getTodos: () => Promise<void>;
+  addTodo: (todo: TodoRequest) => Promise<void>;
+  deleteTodo: (id: string) => Promise<void>;
+  updateTodo: (id: string, newTodo: TodoRequest) => Promise<void>;
+  getTodo: (id: string) => Promise<Todo | undefined>;
 }
 
 const TodoContext = createContext<TodoProps | null>(null);
@@ -37,7 +38,7 @@ function TodoProvider({ children }: { children: React.ReactNode }) {
 
   const deleteTodo = async (id: string) => {
     try {
-      await axios.delete<string>(`/api/todo/${id}`);
+      await axios.delete<void>(`/api/todo/${id}`);
       setTodos((prev) => prev.filter(todo => todo.id !== id));
     } catch (err) {
       console.error(err);
@@ -53,12 +54,22 @@ function TodoProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const getTodo = async (id: string) => {
+    try {
+      const res = await axios.get<Todo>(`/api/todo/${id}`);
+      return res.data;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   useEffect(() => {
-    getTodos();
+    getTodos()
+      .catch(console.error);
   }, []);
 
   return (
-    <TodoContext.Provider value={{todos, setTodos, getTodos, addTodo, deleteTodo, updateTodo }}>
+    <TodoContext.Provider value={{todos, setTodos, getTodos, addTodo, deleteTodo, updateTodo, getTodo }}>
       { children }
     </TodoContext.Provider>
   )

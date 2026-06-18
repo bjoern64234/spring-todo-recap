@@ -21,5 +21,8 @@ form {
     button {
         margin: 10px 0;
         cursor: pointer;
+        border: #ffffff solid 1px;
+        border-radius: 0.2rem;
+        padding: 0.2rem;
     }
 }

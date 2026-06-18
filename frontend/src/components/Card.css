@@ -9,10 +9,25 @@
     text-align: left;
     cursor: grab;
 
-    .remove-card {
+    .remove-card, .details-btn, .info-btn {
         cursor: pointer;
         position: absolute;
         top: 0.5rem;
         right: 1rem;
+    }
+
+    .details-btn {
+        top: 3.5rem;
+        border: #ffffff solid 1px;
+        border-radius: 0.2rem;
+        padding: 0.2rem;
+    }
+
+    .info-btn {
+        top: 3.5rem;
+        right: 4rem;
+        border: #ffffff solid 1px;
+        border-radius: 0.2rem;
+        padding: 0.2rem;
     }
 }

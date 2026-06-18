@@ -1,19 +1,20 @@
-import "./AddCard.css"
+import "./UpdateCard.css";
 import {useState} from "react";
 import * as React from "react";
 import {useTodo} from "../contexts/TodoContext.tsx";
-import type {TodoRequest} from "../types/Todo.ts";
+import type {Todo, TodoRequest} from "../types/Todo.ts";
 
-type AddCardProps = {
+type UpdateCardProps = {
+  todo: Todo;
   isForm: boolean;
   setIsForm: (value: boolean) => void;
   formStatus: string;
 }
 
-export default function AddCard({ isForm, setIsForm, formStatus }: Readonly<AddCardProps>) {
-  const [description, setDescription] = useState<string>("");
+export default function UpdateCard({ todo, isForm, setIsForm, formStatus }: Readonly<UpdateCardProps>) {
+  const [description, setDescription] = useState<string>(todo.description);
 
-  const { addTodo } = useTodo();
+  const { updateTodo } = useTodo();
 
   if (isForm) return null;
 
@@ -24,7 +25,7 @@ export default function AddCard({ isForm, setIsForm, formStatus }: Readonly<AddC
       description: description,
       status: formStatus,
     }
-    await addTodo(newTodo);
+    await updateTodo(todo.id, newTodo);
 
     setDescription("");
     setIsForm(true)
@@ -32,7 +33,7 @@ export default function AddCard({ isForm, setIsForm, formStatus }: Readonly<AddC
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Please enter your Task description</h2>
+      <h2>Please update your Task description</h2>
       <input
         type="text"
         name="description"
@@ -44,7 +45,7 @@ export default function AddCard({ isForm, setIsForm, formStatus }: Readonly<AddC
         name="status"
         value={formStatus}
       />
-      <button>Add Task</button>
+      <button>Update Task</button>
       <button onClick={()=> setIsForm(true)}>Close</button>
     </form>
   )
