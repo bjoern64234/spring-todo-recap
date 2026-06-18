@@ -2,6 +2,8 @@ import './App.css'
 import Header from "./components/Header.tsx";
 import {Route, Routes} from "react-router-dom";
 import Dashboard from "./components/Dashboard.tsx";
+import TodoStep from "./components/TodoStep.tsx";
+import {STATUS} from "./utils/Status.ts";
 
 function App() {
 
@@ -10,9 +12,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/todo" element={<Dashboard />} />
-        <Route path="/doing" element={<Dashboard />} />
-        <Route path="/done" element={<Dashboard />} />
+        {Object.values(STATUS).map(status => (
+          <Route path={`/${status}`} element={<TodoStep status={status} />} />
+        ))}
       </Routes>
     </>
   )

@@ -9,8 +9,8 @@ export default function Header() {
       </div>
       <div className="nav-links">
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/todo">Todo</NavLink>
-        <NavLink to="/doing">Doing</NavLink>
+        <NavLink to="/open">Todo</NavLink>
+        <NavLink to="/in_progress">Doing</NavLink>
         <NavLink to="/done">Done</NavLink>
       </div>
     </nav>
