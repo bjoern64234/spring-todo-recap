@@ -1,33 +1,90 @@
 .card {
-    position: relative;
-    color: #fff;
-    background-color: #373737;
-    border: #fff solid 2px;
-    border-radius: 12px;
-    padding: 2rem;
-    margin: 1rem 0;
-    text-align: left;
-    cursor: grab;
+  position: relative;
+  background: var(--surface);
+  border-left: 4px solid var(--col-accent, var(--ink-faint));
+  border-radius: 2px;
+  padding: 14px 14px 14px 16px;
+  margin: 10px 16px 0;
+  text-align: left;
+  cursor: grab;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+}
 
-    .remove-card, .details-btn, .info-btn {
-        cursor: pointer;
-        position: absolute;
-        top: 0.5rem;
-        right: 1rem;
-    }
+.card[data-status="OPEN"]        { --col-accent: var(--col-open); }
+.card[data-status="IN_PROGRESS"] { --col-accent: var(--col-progress); }
+.card[data-status="DONE"]        { --col-accent: var(--col-done); }
 
-    .details-btn {
-        top: 3.5rem;
-        border: #ffffff solid 1px;
-        border-radius: 0.2rem;
-        padding: 0.2rem;
-    }
+.card:active {
+  cursor: grabbing;
+  box-shadow: var(--shadow-drag);
+  transform: rotate(-1.5deg) scale(1.02);
+}
 
-    .info-btn {
-        top: 3.5rem;
-        right: 4rem;
-        border: #ffffff solid 1px;
-        border-radius: 0.2rem;
-        padding: 0.2rem;
-    }
+.card-header h2 {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink);
+  margin: 0;
+  padding-right: 24px;
+}
+
+.remove-card {
+  cursor: pointer;
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  font-size: 12px;
+  color: var(--ink-faint);
+  line-height: 1;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: color 0.12s, background 0.12s;
+}
+
+.remove-card:hover {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+}
+
+.details-btn,
+.info-btn {
+  position: absolute;
+  bottom: 10px;
+  font-size: 11px;
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+  background: transparent;
+  border: 1px solid var(--ink-faint);
+  border-radius: 2px;
+  padding: 3px 7px;
+  color: var(--ink-muted);
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s;
+}
+
+.details-btn {
+  right: 10px;
+}
+
+.info-btn {
+  right: 74px;
+}
+
+.details-btn:hover,
+.info-btn:hover {
+  border-color: var(--col-accent, var(--ink-muted));
+  color: var(--col-accent, var(--ink));
+}
+
+/* extra bottom padding to make room for the action buttons */
+.card-header {
+  padding-bottom: 28px;
 }

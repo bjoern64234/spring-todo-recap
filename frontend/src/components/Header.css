@@ -1,23 +1,46 @@
 nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    border-bottom: #1f2028 solid 2px;
-    padding: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 28px;
+  height: 52px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--ink-faint);
+  flex-shrink: 0;
+}
 
-    .brand {
-        margin-bottom: 2rem;
-    }
+.brand h2 {
+  font-family: var(--display);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: -0.2px;
+  color: var(--ink);
+}
 
-    .nav-links * {
-        margin: 2rem;
-        padding: 0.5rem 1rem;
-        list-style: none;
-        text-decoration: none;
-        background: #2e303a;
-        border-radius: 0.5rem;
-        color: #fff;
-    }
+.nav-links {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink-muted);
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition: background 0.12s, color 0.12s;
+}
+
+.nav-links a:hover {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.nav-links a.active {
+  color: var(--ink);
+  background: var(--bg);
 }

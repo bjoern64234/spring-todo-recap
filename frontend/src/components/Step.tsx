@@ -39,6 +39,7 @@ export default function Step({ status, todos, handleAdd }: Readonly<StepProps>) 
       <div className="container">
         <div
           className="dropzone"
+          data-status={status}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}

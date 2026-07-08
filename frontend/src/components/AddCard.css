@@ -1,28 +1,85 @@
 form {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #1f2028;
-    color: #fff;
-    border-radius: 15px;
-    width: 500px;
-    height: 100px;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
 
-    input {
-        width: 100%;
-    }
+  background: var(--surface);
+  border-radius: 4px;
+  width: 420px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 
-    button {
-        margin: 10px 0;
-        cursor: pointer;
-        border: #ffffff solid 1px;
-        border-radius: 0.2rem;
-        padding: 0.2rem;
-    }
+  box-shadow:
+    0 0 0 100vmax rgba(26, 23, 20, 0.35),
+    var(--shadow-form);
+}
+
+form h2 {
+  font-family: var(--display);
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+
+form input[type="text"] {
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 14px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 3px;
+  background: var(--bg);
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+form input[type="text"]:focus {
+  border-color: var(--col-progress);
+}
+
+form button {
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 3px;
+  border: 1px solid var(--ink-faint);
+  background: transparent;
+  color: var(--ink-muted);
+  cursor: pointer;
+  align-self: flex-start;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+}
+
+form button[type="submit"],
+form button:first-of-type {
+  background: var(--ink);
+  color: var(--surface);
+  border-color: var(--ink);
+}
+
+form button[type="submit"]:hover,
+form button:first-of-type:hover {
+  background: var(--col-progress);
+  border-color: var(--col-progress);
+}
+
+form button:last-of-type {
+  color: var(--ink-muted);
+  background: transparent;
+  border-color: var(--ink-faint);
+}
+
+form button:last-of-type:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+form .form-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
 }

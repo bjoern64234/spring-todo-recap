@@ -36,6 +36,7 @@ export default function Card({ todo }: Readonly<CardProps>) {
     <div
       onDragStart={handleDataTransfer}
       className="card"
+      data-status={todo.status}
       draggable={draggable}
       onMouseDown={() => setDraggable(true)}
       onMouseUp={() => setDraggable(false)}
